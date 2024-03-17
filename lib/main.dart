@@ -9,6 +9,8 @@ class MyAPP extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const QrScanner ();
+    return const MaterialApp(
+      home: QrScanner(),
+    );
   }
 }
