@@ -28,20 +28,10 @@ class _QrScannerState extends State<QrScanner> {
       this.controller = controller;
       controller.scannedDataStream.listen((scanData) async {
         setState(() {
-          scannedCode = scanData.code!;
+          scannedCode = scanData.code.toString();
         });
-
-        // Send a GET request to the scanned URL
-        final response = await http.get(Uri.parse(scannedCode));
-
-        // Check if the response is successful and the content is a web URL
-        if (response.statusCode == 200 && response.headers['content-type']!.contains('text/html')) {
-          // Launch the web URL
-          launch(scannedCode);
-        } else {
-          // Handle other types of content or errors
-          print('Invalid URL or content: $scannedCode');
-        }
+        Uri url = Uri.parse(scanData.code.toString());
+       await launchUrl(url);
       });
     });
   }
